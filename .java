@@ -1,5 +1,5 @@
 import java.util.*;
-public class Main {
+public class JavaTask20251030 {
     public static void main(String[] args){
         Scanner sc= new Scanner(System.in);
         if(!sc.hasNext()){
@@ -17,10 +17,10 @@ public class Main {
             return;
         }
         int toBase = sc.nextInt();
-        main2(input,base,toBase,true);
+        calc(input,base,toBase,true);
     }
     
-    public static void main2(String input,int base, int toBase ,boolean firstCall){
+    public static void calc(String input,int base, int toBase ,boolean firstCall){
         boolean baseToF = false;
         boolean toBaseToF = false;
         int n = 0 ;//数値計算用に引数を格納する場所
@@ -54,7 +54,7 @@ public class Main {
                     System.out.println(sum+"("+toBase+")");
                     return;
                 }else{//もう一度変換が必要なため再帰呼び出し
-                    main2(Integer.toString(sum),10,toBase,false);
+                    calc(Integer.toString(sum),10,toBase,false);
                     return;
                 }
             }
@@ -85,7 +85,7 @@ public class Main {
                     System.out.println(sum+"("+toBase+")");
                     return;
                 }else//まだ変換したいので再帰
-                main2(Integer.toString(sum),10,toBase,false);
+                calc(Integer.toString(sum),10,toBase,false);
                 return;
             }
         }
