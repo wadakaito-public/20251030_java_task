@@ -24,9 +24,12 @@ public class JavaTask20251030 {
         boolean baseToF = false;
         boolean toBaseToF = false;
         int n = 0 ;//数値計算用に引数を格納する場所
-        ArrayList<Integer> digets = new ArrayList<>();//基数を落とすときに使う桁記録用の配列
+        ArrayList<Integer> digits = new ArrayList<>();//基数を落とすときに使う桁記録用の配列
         if(firstCall == true) System.out.println(input +"("+base+")を"+toBase+"進数に変換");
-        
+        if(input.equals("0")){
+            System.out.println("0("+toBase+")");
+                return;
+        }
         if(base == 2 || base == 10 || base == 16)baseToF = true;
             else System.out.println("未対応の基数です");
         if(toBase == 2 || toBase == 10 || toBase == 16)toBaseToF = true;
@@ -39,7 +42,8 @@ public class JavaTask20251030 {
             System.out.println("変換前と変換後の基数の指定が同じなため変換は行いませんでした。");
             return;
             }
-                    
+        
+
         if(baseToF == true && toBaseToF == true){
             //16進の場合、一度10進にする
             if(base == 16){
@@ -47,9 +51,10 @@ public class JavaTask20251030 {
                 for(int i = 0; i < input.length(); i++){
                     //末尾位置文字だけ取り出す
                     String digitStr = input.substring(input.length() - 1 - i, input.length() - i );
-                    digets.add(Integer.parseInt(convert(digitStr,"10")));
-                    sum += (digets.get(i)*Math.pow(base,i));
+                    digits.add(Integer.parseInt(convert(digitStr,"10")));
+                    sum += (digits.get(i)*Math.pow(base,i));
                 }
+                
                 if(toBase == 10){//変換完了
                     System.out.println(sum+"("+toBase+")");
                     return;
@@ -59,7 +64,7 @@ public class JavaTask20251030 {
                 }
             }
             //ひたすら割る（10進→2進、10進→16進）
-            if(base > toBase || base == 10&& toBase == 16 ){
+            if(base > toBase || (base == 10 && toBase == 16) ){
                 String out = "";
                 for(int i = 0; n > 0 ; i++){
                     int mod = n%toBase;
@@ -77,9 +82,9 @@ public class JavaTask20251030 {
             if(base < toBase){
                 int sum = 0;
                 for(int i = 0; n > 0; i++){
-                digets.add(n % 10);
+                digits.add(n % 10);
                     n /=10;
-                    sum += (digets.get(i)*Math.pow(base,i));
+                    sum += (digits.get(i)*Math.pow(base,i));
                 }
                 if(toBase == 10 ){
                     System.out.println(sum+"("+toBase+")");
@@ -93,13 +98,13 @@ public class JavaTask20251030 {
     
     //16進、10進を変換 convert((str)変換対象,(str)変換後の基数)
     public static String convert(String input,String to){
-        String output = "0";
+        String output = "error!!";
         String[][] hexToDec ={
             {"10","11","12","13","14","15"},{"A","B","C","D","E","F"}
         };
         
         //16進、10進か？正規表現で判断
-        if(input.matches("^([A-F]|1[0-5])|[0-9]$")){
+        if(input.matches("^([A-F]|1[0-5]|[0-9])$")){
             if(to.equals("10")){  //10進変換
                 for(int i = 0; i < hexToDec[0].length; i++){
                     if(input.equals(hexToDec[1][i])){
